@@ -14,7 +14,7 @@ Ensure also that Firefox web browser is installed locally.
 
 Download `destinations_scraper.py` and store it in a convenient local directory.
 
-## Executing the Python file
+# Execution
 
 Open command-line system, and change directory to the one where the Python file is located.
 
