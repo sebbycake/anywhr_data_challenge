@@ -7,6 +7,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.common import exceptions
 
 # Scraping list of all countries using BeauifulSoup
 
@@ -56,19 +57,20 @@ def get_country_tourist_destinations(country_name):
     browser.find_element_by_partial_link_text('More ').click()
     # wait for browser to load
     time.sleep(1)
-    if browser.find_element_by_xpath('//*[@id="yDmH0d"]/c-wiz[1]/div/div/c-wiz/div/div[2]/div[1]/div/c-wiz/div/div[1]/div[3]/div/div/button/div[2]'):
+    try:
         browser.find_element_by_xpath('//*[@id="yDmH0d"]/c-wiz[1]/div/div/c-wiz/div/div[2]/div[1]/div/c-wiz/div/div[1]/div[3]/div/div/button/div[2]').click()
-    else:
+        time.sleep(2)
+        print(f"Scraping in progress. . .", flush=True)
+        # tourist attractions tags are identified by unique class name "YmWhbc"
+        destinations_list = browser.find_elements_by_class_name("YmWhbc")
+        # unpacking list to retrieve attraction name
+        destinations_list = [d.text for d in destinations_list]
+        # updating dictionary with country as the key, and list of attractions as the value
+        print(f"Scraping for {country_name} completed.\n", flush=True)
+        country_tourists_attractions_dict[country_name] = destinations_list
+    except exceptions.NoSuchElementException:
+        print(f"Scraping for {country_name} has failed. Please try again later.", flush=True)
         pass
-    time.sleep(2)
-    print(f"Scraping in progress. . .", flush=True)
-    # tourist attractions tags are identified by unique class name "YmWhbc"
-    destinations_list = browser.find_elements_by_class_name("YmWhbc")
-    # unpacking list to retrieve attraction name
-    destinations_list = [d.text for d in destinations_list]
-    # updating dictionary with country as the key, and list of attractions as the value
-    print(f"Scraping for {country_name} completed.\n", flush=True)
-    country_tourists_attractions_dict[country] = destinations_list
 
 
 # iterate for each country
