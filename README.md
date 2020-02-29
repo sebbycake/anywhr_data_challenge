@@ -1,5 +1,6 @@
 # anywhr_data_challenge
-Scraping the web for tourist destinations
+
+Problem Statement: How might we acquire list of all possible tourist destinations in the world?
 
 # Installation
 
