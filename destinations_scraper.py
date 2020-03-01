@@ -23,7 +23,7 @@ try:
     # initiating a beautifulsoup object
     soup = BeautifulSoup(html_doc, features="html.parser")
     soup.encode("utf-8")
-    # finding html tags with country name. identified <td> tags with the following class attribute value
+    # finding html tags with country name. identified a tags with the following class attribute value
     scraped_list = soup.find_all("a", class_="md-crosslink")
     country_list = [country.get_text() for country in scraped_list][2:]
 except requests.exceptions.ConnectionError:
@@ -58,6 +58,7 @@ def get_country_tourist_destinations(country_name):
     # wait for browser to load
     time.sleep(1)
     try:
+        # click 'See all top sights'
         browser.find_element_by_xpath('//*[@id="yDmH0d"]/c-wiz[1]/div/div/c-wiz/div/div[2]/div[1]/div/c-wiz/div/div[1]/div[3]/div/div/button/div[2]').click()
         time.sleep(2)
         print(f"Scraping in progress. . .", flush=True)
@@ -65,12 +66,17 @@ def get_country_tourist_destinations(country_name):
         destinations_list = browser.find_elements_by_class_name("YmWhbc")
         # unpacking list to retrieve attraction name
         destinations_list = [d.text for d in destinations_list]
-        # updating dictionary with country as the key, and list of attractions as the value
         print(f"Scraping for {country_name} completed.\n", flush=True)
+        # updating dictionary with country as the key, and list of attractions as the value
         country_tourists_attractions_dict[country_name] = destinations_list
     except exceptions.NoSuchElementException:
-        print(f"Scraping for {country_name} has failed. Please try again later.", flush=True)
-        pass
+        # print(f"Scraping for {country_name} has failed. Please try again later.", flush=True)
+        print(f"Scraping in progress. . . More destinations by Google.", flush=True)
+        destinations_list = browser.find_elements_by_tag_name("h2")
+        destinations_list = [d.text for d in destinations_list]
+        print(f"Scraping for {country_name} completed.\n", flush=True)
+        country_tourists_attractions_dict[country_name] = destinations_list
+
 
 
 # iterate for each country
