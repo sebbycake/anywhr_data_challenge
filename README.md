@@ -1,26 +1,38 @@
-# anywhr_data_challenge
+# Anywhr Web Scraping Challenge
+
+## About The Project
 
 Problem Statement: How might we acquire list of all possible tourist destinations in the world?
 
-# Installation
+### Built With
 
-## Installing dependencies
+* [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+* [Selenium](https://www.selenium.dev/)
 
-Install dependencies into your python environment using pip. Ensure that Python is already installed. You can create a virtual environment for the sake of this project.
 
-Python 2: `pip install -r requirements.txt` 
-Python 3:  `pip3 install -r requirements.txt`
+## Getting Started
 
-Ensure also that Firefox web browser is installed locally. 
+### Prerequisites
 
-Download `destinations_scraper.py` and store it in a convenient local directory.
+* [Python and pip](https://www.python.org/)
+* [Mozilla Firefox](https://www.mozilla.org/en-US/exp/firefox/new/) 
 
-# Execution
 
-Open command-line system, and change directory to the one where the Python file is located.
+### Installation
 
-Enter the following command:
+1. Install dependencies on your local machine:
 
-`python destinations_scraper.py`
+```
+git clone https://github.com/sebbycake/anywhr_data_challenge.git
+pip install -r requirements.txt
+```
 
-Enjoy the scraping in action!
+### Usage
+
+Run the code on terminal:
+```
+cd anywhr_data_challenge
+python destinations_scraper.py
+```
+
+View `tourist_destinations.csv` for the list of tourist destinations scraped.
